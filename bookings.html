@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings - SkyBooker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    
+    <!-- Navigation Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                    </svg>
+                    <h1 class="text-2xl font-bold text-blue-600 dark:text-blue-400">SkyBooker</h1>
+                </a>
+                
+                <div class="flex items-center space-x-4">
+                    <button id="themeToggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                        <svg id="sunIcon" class="w-6 h-6 text-yellow-500 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        <svg id="moonIcon" class="w-6 h-6 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                    
+                    <a href="index.html" class="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                        Search Flights
+                    </a>
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 btn-hover">
+                        Sign In
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        
+        <!-- Page Header -->
+        <div class="mb-8">
+            <h2 class="text-4xl font-bold text-gray-800 dark:text-white mb-2">My Bookings</h2>
+            <p class="text-gray-600 dark:text-gray-400">Manage your flight reservations and travel plans</p>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="mb-6 flex flex-wrap gap-3">
+            <button id="filterAll" class="filter-btn px-6 py-2 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors">
+                All Bookings
+            </button>
+            <button id="filterUpcoming" class="filter-btn px-6 py-2 rounded-lg bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                Upcoming
+            </button>
+            <button id="filterCompleted" class="filter-btn px-6 py-2 rounded-lg bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                Completed
+            </button>
+            <button id="filterCancelled" class="filter-btn px-6 py-2 rounded-lg bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                Cancelled
+            </button>
+        </div>
+
+        <!-- Bookings Summary Cards -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg p-6 text-white">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-blue-100 text-sm mb-1">Upcoming Trips</p>
+                        <p class="text-4xl font-bold" id="upcomingCount">0</p>
+                    </div>
+                    <div class="text-5xl opacity-70">✈️</div>
+                </div>
+            </div>
+            
+            <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg p-6 text-white">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-green-100 text-sm mb-1">Completed</p>
+                        <p class="text-4xl font-bold" id="completedCount">0</p>
+                    </div>
+                    <div class="text-5xl opacity-70">✓</div>
+                </div>
+            </div>
+            
+            <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg p-6 text-white">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-purple-100 text-sm mb-1">Total Bookings</p>
+                        <p class="text-4xl font-bold" id="totalCount">0</p>
+                    </div>
+                    <div class="text-5xl opacity-70">📋</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bookings List -->
+        <section id="bookingsList" class="space-y-6">
+            <!-- Booking cards will be dynamically inserted here -->
+        </section>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden text-center py-16">
+            <div class="text-6xl mb-4">✈️</div>
+            <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">No Bookings Found</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-6">You haven't made any flight bookings yet</p>
+            <a href="index.html" class="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 btn-hover font-semibold">
+                Search Flights
+            </a>
+        </div>
+    </main>
+
+    <!-- Booking Detail Modal -->
+    <div id="detailModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-6">
+                    <h3 class="text-2xl font-bold text-gray-800 dark:text-white">Booking Details</h3>
+                    <button id="closeModal" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-2xl">
+                        ×
+                    </button>
+                </div>
+                
+                <div id="modalContent">
+                    <!-- Modal content will be dynamically inserted -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-gray-800 mt-16 py-8 border-t border-gray-200 dark:border-gray-700">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-600 dark:text-gray-400">&copy; 2025 SkyBooker. All rights reserved.</p>
+            <p class="text-sm text-gray-500 dark:text-gray-500 mt-2">Frontend Prototype for Educational Purposes</p>
+        </div>
+    </footer>
+
+    <script src="bookings.js"></script>
+</body>
+</html>
