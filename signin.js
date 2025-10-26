@@ -4,13 +4,28 @@ const html = document.documentElement;
 const sunIcon = document.getElementById('sunIcon');
 const moonIcon = document.getElementById('moonIcon');
 
-let isDark = false;
+// Load saved theme on page load
+let isDark = localStorage.getItem('theme') === 'dark';
+
+// Apply theme on load
+if (isDark) {
+    html.classList.add('dark');
+    sunIcon.classList.remove('hidden');
+    moonIcon.classList.add('hidden');
+} else {
+    html.classList.remove('dark');
+    sunIcon.classList.add('hidden');
+    moonIcon.classList.remove('hidden');
+}
 
 themeToggle.addEventListener('click', () => {
     isDark = !isDark;
     html.classList.toggle('dark');
     sunIcon.classList.toggle('hidden');
     moonIcon.classList.toggle('hidden');
+    
+    // Save theme preference
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
 });
 
 // Tab Switching
@@ -78,7 +93,7 @@ signinForm.addEventListener('submit', (e) => {
     
     if (isValid) {
         // Simulate successful login
-        showSuccessMessage('Sign In Successful!', 'Welcome back to SkyBooker');
+        showSuccessMessage('Sign In Successful!', 'Welcome back to JSN SkyBooker');
         
         // Store user info (in a real app, this would come from the server)
         localStorage.setItem('userLoggedIn', 'true');
@@ -161,7 +176,7 @@ signupForm.addEventListener('submit', (e) => {
     
     if (isValid) {
         // Simulate successful registration
-        showSuccessMessage('Account Created Successfully!', `Welcome to SkyBooker, ${firstName}!`);
+        showSuccessMessage('Account Created Successfully!', `Welcome to JSN SkyBooker, ${firstName}!`);
         
         // Store user info (in a real app, this would be handled by the server)
         sessionStorage.setItem('userLoggedIn', 'true');

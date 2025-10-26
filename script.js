@@ -4,13 +4,28 @@ const html = document.documentElement;
 const sunIcon = document.getElementById('sunIcon');
 const moonIcon = document.getElementById('moonIcon');
 
-let isDark = false;
+// Load saved theme on page load
+let isDark = localStorage.getItem('theme') === 'dark';
+
+// Apply theme on load
+if (isDark) {
+    html.classList.add('dark');
+    sunIcon.classList.remove('hidden');
+    moonIcon.classList.add('hidden');
+} else {
+    html.classList.remove('dark');
+    sunIcon.classList.add('hidden');
+    moonIcon.classList.remove('hidden');
+}
 
 themeToggle.addEventListener('click', () => {
     isDark = !isDark;
     html.classList.toggle('dark');
     sunIcon.classList.toggle('hidden');
     moonIcon.classList.toggle('hidden');
+    
+    // Save theme preference
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
 });
 
 // Form Validation and Search Functionality
